@@ -6,11 +6,11 @@ export default {
     data() {
         return {
             store,
-            flags: ["ko", "hi", "te", "cs", "hi", "te", "ja"],
-            showLang: null
+            flags: ["ko", "hi", "te", "cs", "hi", "te", "ja"]
         }
     },
     methods: {
+        // Return classes to show language flag
         getFlag(lang) {
             console.log(lang)
             if (lang == "en") {
@@ -25,25 +25,51 @@ export default {
 </script>
 
 <template>
-    <!-- Search results -->
-    <section v-if="store.AllMovies.length > 0 && !store.errorMsg && !this.store.loading">
-        <!-- <pre class="text-xs">{{ store.AllMovies }}</pre> -->
-        <ol v-for="item in store.AllMovies[0]" class="list-disc px-2 border border-pink-400">
-            <li>
-                <span class="text-xs"><strong class="text-sm">Title: </strong>{{ item.title }}</span>
-            </li>
-            <li>
-                <span class="text-xs"><strong class="text-sm">Original Title: </strong>{{ item.original_title }}</span>
-            </li>
-            <li v-if="!flags.includes(item.original_language)">
-                <strong class="text-sm">Language: </strong>
-                <span :class="getFlag(item.original_language)"></span>
-                <!-- <span :class="`fi fi-${item.original_language}`"></span> -->
-            </li>
-            <li>
-                <span class="text-xs"><strong class="text-sm">Vote: </strong>{{ item.vote_average }}</span>
-            </li>
-        </ol>
+    <!-- Search Results -->
+    <section>
+
+        <!-- Movies -->
+        <section v-if="store.AllMovies.length > 0 && !store.errorMsg && !this.store.loading">
+            <!-- <pre class="text-xs">{{ store.AllMovies }}</pre> -->
+            <h2>MOVIES</h2>
+            <ol v-for="item in store.AllMovies[0]" class="list-disc px-2 border border-pink-400">
+                <li>
+                    <span class="text-xs"><strong class="text-sm">Title: </strong>{{ item.title }}</span>
+                </li>
+                <li>
+                    <span class="text-xs"><strong class="text-sm">Original Title: </strong>{{ item.original_title }}</span>
+                </li>
+                <li v-show="!flags.includes(item.original_language)">
+                    <strong class="text-sm">Language: </strong>
+                    <span :class="getFlag(item.original_language)"></span>
+                </li>
+                <li>
+                    <span class="text-xs"><strong class="text-sm">Vote: </strong>{{ item.vote_average }}</span>
+                </li>
+            </ol>
+        </section>
+
+        <!-- TV Series -->
+        <section v-if="store.AllSeries.length > 0 && !store.errorMsg && !this.store.loading">
+            <!-- <pre class="text-xs">{{ store.AllSeries[0] }}</pre> -->
+            <h2>TV SERIES</h2>
+            <ol v-for="item in store.AllSeries[0]" class="list-disc px-2 border border-pink-400">
+                <li>
+                    <span class="text-xs"><strong class="text-sm">Title: </strong>{{ item.name }}</span>
+                </li>
+                <li>
+                    <span class="text-xs"><strong class="text-sm">Original Title: </strong>{{ item.original_name }}</span>
+                </li>
+                <li v-show="!flags.includes(item.original_language)">
+                    <strong class="text-sm">Language: </strong>
+                    <span :class="getFlag(item.original_language)"></span>
+                </li>
+                <li>
+                    <span class="text-xs"><strong class="text-sm">Vote: </strong>{{ item.vote_average }}</span>
+                </li>
+            </ol>
+        </section>
+
     </section>
 </template>
 

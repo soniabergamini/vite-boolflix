@@ -19,25 +19,36 @@ export default {
     }
   },
   methods: {
-    // Return all movies data from API call
-    getMoviesData() {
-      console.log("Load movies")
+    // Call method that returns data from API
+    chatSearch(newSearch) {
+      this.getAllData(`${this.store.APIMovies}&query=${newSearch}`, "movie");
+      this.getAllData(`${this.store.APISeries}&query=${newSearch}`, "series");
     },
-    // Return all TV series data from API call
-    getSeriesData() {
-      console.log("Load TV series")
-    }
+    // Return movies and TV series data, from API call
+    getAllData(url, array) {
+      axios.get(url).then(response => {
+        array == "movie" ? this.store.AllMovies = [] : this.store.AllSeries = [];
+        array == "movie" ? this.store.AllMovies.push(response.data.results) : this.store.AllSeries.push(response.data.results);
+        this.store.loading = false;
+      }).catch(error => {
+        console.error(`🫤 Something went wrong with the Search ${array} API call: `, error);
+        setTimeout(() => {
+          this.store.loading = false;
+          this.store.errorMsg = true;
+        }, 1 * 5000);
+      })
+    },
   },
   beforeMount() {
-    this.getMoviesData();
-    this.getSeriesData()
+    // this.getAllData();
+    // this.getAllData()
   }
 }
 </script>
 
 <template>
   <header class="text-white border border-red-300 h-20 p-3">
-    <AppHeader />
+    <AppHeader @chatSearch="chatSearch" />
   </header>
   <main class="text-white h-[calc(100vh-120px)] border border-yellow-200 p-3">
     <AppMain />

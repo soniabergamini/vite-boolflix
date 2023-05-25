@@ -1,38 +1,11 @@
 <script>
-import { store } from '../data/store';
-import axios from 'axios';
 
 export default {
     name: "AppHeader",
     data() {
         return {
-            store,
-            newSearch: "",
-            APIurl: ""
+            newSearch: ""
         }
-    },
-    methods: {
-        // Return API url with search query
-        chatSearch() {
-            this.APIurl = `${this.store.APIMovies}&query=${this.newSearch}`;
-            console.log(this.APIurl);
-            this.getMoviesData()
-        },
-        // Return movies data from API call
-        getMoviesData() {
-            axios.get(this.APIurl).then(response => {
-                this.store.AllMovies = [];
-                this.store.AllMovies.push(response.data.results);
-                console.log("The Search Movies API call was successful 🥳. DATA: ", response.data.results);
-                this.store.loading = false
-            }).catch(error => {
-                console.error("🫤 Something went wrong with the Search Movies API call: ", error);
-                setTimeout(() => {
-                    this.store.loading = false
-                    this.store.errorMsg = true
-                }, 1 * 5000);
-            })
-        },
     }
 }
 
@@ -42,7 +15,7 @@ export default {
     <!-- Nav Menu -->
     <nav class="flex justify-between items-center">
 
-        <!-- Boolflix Logo -->
+        <!-- Netflix Logo -->
         <div class="w-1/12">
             <a href="#">
                 <img src="/netflix-logo.png" alt="netflix-logo">
@@ -54,7 +27,7 @@ export default {
             <form action="#">
                 <input class="text-gray-500 pl-9 pr-2 py-1" v-model="newSearch" type="search"
                     placeholder="Movies, TV series">
-                <button @click="chatSearch" class="border mx-2 px-2 py-1">Search</button>
+                <button @click="$emit('chatSearch', this.newSearch)" class="border mx-2 px-2 py-1">Search</button>
             </form>
         </div>
 
