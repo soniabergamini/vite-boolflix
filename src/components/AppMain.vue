@@ -6,7 +6,8 @@ export default {
     data() {
         return {
             store,
-            flags: ["en", "ja", "ko", "hi", "te", "cs", "hi", "te", "ja"]
+            flags: ["ko", "hi", "te", "cs", "hi", "te", "ja"],
+            showLang: null
         }
     },
     methods: {
@@ -14,8 +15,6 @@ export default {
             console.log(lang)
             if (lang == "en") {
                 return "fi fi-gb"
-            } else if (this.flags.includes(lang) && lang != "en") {
-                return "hidden"
             } else {
                 return `fi fi-${lang}`
             }
@@ -36,7 +35,7 @@ export default {
             <li>
                 <span class="text-xs"><strong class="text-sm">Original Title: </strong>{{ item.original_title }}</span>
             </li>
-            <li>
+            <li v-if="!flags.includes(item.original_language)">
                 <strong class="text-sm">Language: </strong>
                 <span :class="getFlag(item.original_language)"></span>
                 <!-- <span :class="`fi fi-${item.original_language}`"></span> -->
@@ -45,7 +44,6 @@ export default {
                 <span class="text-xs"><strong class="text-sm">Vote: </strong>{{ item.vote_average }}</span>
             </li>
         </ol>
-        <span class="fi fi-it"></span>
     </section>
 </template>
 
