@@ -54,7 +54,7 @@ export default {
             <form action="#">
                 <input class="text-gray-500 pl-9 pr-2 py-1" v-model="newSearch" type="search"
                     placeholder="Movies, TV series">
-                <button @click="chatSearch">Search</button>
+                <button @click="chatSearch" class="border mx-2 px-2 py-1">Search</button>
             </form>
         </div>
 
