@@ -18,6 +18,10 @@ export default {
         // Return vote rounded (integer from 1 to 5)
         getVoteStars(vote) {
             return Math.round(vote / 2)
+        },
+        // Return number of empty stars to render on page
+        getEmptyStars(vote) {
+            return 5 - Math.round(vote / 2)
         }
     }
 }
@@ -49,9 +53,12 @@ export default {
                 </li>
                 <li>
                     <span class="text-xs">
-                        <strong class="text-sm">Vote: {{ Math.round(item.vote_average / 2) }}/5</strong>
+                        <strong class="text-sm">Vote: </strong>
                         <span v-for="item in getVoteStars(item.vote_average)">
                             <font-awesome-icon :icon="['fas', 'star']" size="lg" class="inline mx-1 text-yellow-500" />
+                        </span>
+                        <span v-for="item in getEmptyStars(item.vote_average)">
+                            <font-awesome-icon :icon="['far', 'star']" size="lg" class="inline mx-1 text-yellow-500" />
                         </span>
                     </span>
                 </li>
@@ -78,9 +85,12 @@ export default {
                 </li>
                 <li>
                     <span class="text-xs">
-                        <strong class="text-sm">Vote: {{ Math.round(item.vote_average / 2) }}/5</strong>
+                        <strong class="text-sm">Vote: </strong>
                         <span v-for="item in getVoteStars(item.vote_average)">
                             <font-awesome-icon :icon="['fas', 'star']" size="lg" class="inline mx-1 text-yellow-500" />
+                        </span>
+                        <span v-for="item in getEmptyStars(item.vote_average)">
+                            <font-awesome-icon :icon="['far', 'star']" size="lg" class="inline mx-1 text-yellow-500" />
                         </span>
                     </span>
                 </li>
