@@ -19,6 +19,9 @@ export default {
                 return `fi fi-${lang}`
             }
             // ALTERNATIVE: add "fi fi-eu" where the flag is missing, or a custom icon
+        },
+        getVoteStars(vote) {
+            return Math.round(vote / 2)
         }
     }
 }
@@ -28,7 +31,6 @@ export default {
 <template>
     <!-- Search Results -->
     <section>
-        <font-awesome-icon :icon="['fas', 'star']" size="lg" />
 
         <!-- Movies -->
         <section class="border border-violet-400"
@@ -50,8 +52,12 @@ export default {
                     <span :class="getFlag(item.original_language)"></span>
                 </li>
                 <li>
-                    <span class="text-xs"><strong class="text-sm">Vote: </strong>{{ Math.round(item.vote_average / 2)
-                    }}</span>
+                    <span class="text-xs">
+                        <strong class="text-sm">Vote: {{ Math.round(item.vote_average / 2) }}/5</strong>
+                        <span v-for="item in getVoteStars(item.vote_average)">
+                            <font-awesome-icon :icon="['fas', 'star']" size="lg" class="inline mx-1 text-yellow-500" />
+                        </span>
+                    </span>
                 </li>
             </ol>
         </section>
@@ -75,8 +81,12 @@ export default {
                     <span :class="getFlag(item.original_language)"></span>
                 </li>
                 <li>
-                    <span class="text-xs"><strong class="text-sm">Vote: </strong>{{ Math.round(item.vote_average / 2)
-                    }}</span>
+                    <span class="text-xs">
+                        <strong class="text-sm">Vote: {{ Math.round(item.vote_average / 2) }}/5</strong>
+                        <span v-for="item in getVoteStars(item.vote_average)">
+                            <font-awesome-icon :icon="['fas', 'star']" size="lg" class="inline mx-1 text-yellow-500" />
+                        </span>
+                    </span>
                 </li>
             </ol>
         </section>
