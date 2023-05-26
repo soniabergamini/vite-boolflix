@@ -26,7 +26,7 @@ export default {
         <div>
             <form action="#">
                 <input class="text-gray-500 pl-9 pr-2 py-1" v-model="newSearch" type="search"
-                    placeholder="Movies, TV series">
+                    placeholder="Movies, TV series" @keyup="$emit('chatSearch', this.newSearch)">
                 <button @click="$emit('chatSearch', this.newSearch)" class="border mx-2 px-2 py-1">Search</button>
             </form>
         </div>

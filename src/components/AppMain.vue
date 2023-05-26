@@ -20,6 +20,7 @@ export default {
             }
             // ALTERNATIVE: add "fi fi-eu" where the flag is missing, or a custom icon
         },
+        // Return vote rounded (integer from 1 to 5)
         getVoteStars(vote) {
             return Math.round(vote / 2)
         }
