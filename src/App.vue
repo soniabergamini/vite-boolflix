@@ -40,8 +40,9 @@ export default {
     },
   },
   beforeMount() {
-    // this.getAllData();
-    // this.getAllData()
+    // Call API to render popular content on page
+    this.getAllData(this.store.APIPopularMovies, "movie");
+    this.getAllData(this.store.APIPopularSeries, "series")
   }
 }
 </script>

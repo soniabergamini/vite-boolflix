@@ -4,6 +4,8 @@ export const store = reactive({
     loading: true,
     errorMsg: false,
     APIkey: '0bf37c03732d535d0cb540cf8b23e0f1',
+    APIPopularMovies: 'https://api.themoviedb.org/3/movie/popular?page=1&api_key=0bf37c03732d535d0cb540cf8b23e0f1',
+    APIPopularSeries: 'https://api.themoviedb.org/3/tv/popular?page=1&api_key=0bf37c03732d535d0cb540cf8b23e0f1',
     APIMovies: 'https://api.themoviedb.org/3/search/movie?api_key=0bf37c03732d535d0cb540cf8b23e0f1',
     APISeries: 'https://api.themoviedb.org/3/search/tv?api_key=0bf37c03732d535d0cb540cf8b23e0f1',
     AllMovies: [],
