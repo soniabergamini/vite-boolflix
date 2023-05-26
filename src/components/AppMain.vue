@@ -8,7 +8,8 @@ export default {
             store,
             flags: ["yo", "sw", "ha", "gn", "ff", "ee", "ay", "ar", "zh", "cn", null, undefined],
             currentMovie: null,
-            currentSerie: null
+            currentSerie: null,
+            // overtrue oppure false dentro 
         }
     },
     methods: {
@@ -38,9 +39,10 @@ export default {
         <section class="contentSec" v-if="store.AllMovies.length > 0 && !store.errorMsg && !this.store.loading">
             <h2>MOVIES</h2>
             <div>
-                <div v-for="(item, i) in store.AllMovies[0]" class="text-xs p-2 relative">
+                <div v-for="(item, i) in store.AllMovies[0]" class="text-xs p-2 relative" @mouseenter="currentMovie = i"
+                    @mouseleave="currentMovie = null">
                     <!-- <pre class="text-xs">{{ store.AllMovies[0] }}</pre> -->
-                    <div class="w-[185px]" @mouseenter="currentMovie = i" @mouseleave="currentMovie = null">
+                    <div class="w-[185px]">
                         <img :src="`${store.ImgPath}w185${item.poster_path}`" alt="movie-poster">
                     </div>
                     <div v-show="currentMovie === i" class="cardInfo bg-secondaryBgDark p-3">
@@ -74,9 +76,10 @@ export default {
         <section class="contentSec" v-if="store.AllSeries.length > 0 && !store.errorMsg && !this.store.loading">
             <h2>MOVIES</h2>
             <div>
-                <div v-for="(item, i) in store.AllSeries[0]" class="text-xs p-2 relative">
+                <div v-for="(item, i) in store.AllSeries[0]" class="text-xs p-2 relative" @mouseenter="currentSerie = i"
+                    @mouseleave="currentSerie = null">
                     <!-- <pre class="text-xs">{{ store.AllMovies[0] }}</pre> -->
-                    <div class="w-[185px]" @mouseenter="currentSerie = i" @mouseleave="currentSerie = null">
+                    <div class="w-[185px]">
                         <img :src="`${store.ImgPath}w185${item.poster_path}`" alt="tvserie-poster">
                     </div>
                     <div v-show="currentSerie === i" class="cardInfo bg-secondaryBgDark p-3">
