@@ -28,15 +28,16 @@ export default {
 <template>
     <!-- Search Results -->
     <section>
+        <font-awesome-icon :icon="['fas', 'star']" size="lg" />
 
         <!-- Movies -->
         <section class="border border-violet-400"
             v-if="store.AllMovies.length > 0 && !store.errorMsg && !this.store.loading">
-            <pre class="text-xs">{{ store.AllMovies }}</pre>
+            <!-- <pre class="text-xs">{{ store.AllMovies }}</pre> -->
             <h2>MOVIES</h2>
             <ol v-for="item in store.AllMovies[0]" class="list-disc px-2 border border-pink-400">
-                <li></li>
-                <img :src="`${store.ImgPath}w92${item.poster_path}`" alt="movie-poster">
+                <li>
+                    <img :src="`${store.ImgPath}w92${item.poster_path}`" alt="movie-poster">
                 </li>
                 <li>
                     <span class="text-xs"><strong class="text-sm">Title: </strong>{{ item.title }}</span>
