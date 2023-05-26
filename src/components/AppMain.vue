@@ -50,7 +50,8 @@ export default {
                     <span :class="getFlag(item.original_language)"></span>
                 </li>
                 <li>
-                    <span class="text-xs"><strong class="text-sm">Vote: </strong>{{ item.vote_average }}</span>
+                    <span class="text-xs"><strong class="text-sm">Vote: </strong>{{ Math.round(item.vote_average / 2)
+                    }}</span>
                 </li>
             </ol>
         </section>
@@ -74,7 +75,8 @@ export default {
                     <span :class="getFlag(item.original_language)"></span>
                 </li>
                 <li>
-                    <span class="text-xs"><strong class="text-sm">Vote: </strong>{{ item.vote_average }}</span>
+                    <span class="text-xs"><strong class="text-sm">Vote: </strong>{{ Math.round(item.vote_average / 2)
+                    }}</span>
                 </li>
             </ol>
         </section>
