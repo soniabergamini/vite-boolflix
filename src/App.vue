@@ -19,10 +19,11 @@ export default {
     }
   },
   methods: {
-    // Call method that returns data from API
+    // Call method that returns data from API, to render Contents Searched on page
     chatSearch(newSearch) {
       if (newSearch.trim()) {
         newSearch = encodeURIComponent(newSearch)
+        console.log("User searched: ", newSearch)
         this.getAllData(`${this.store.APIMovies}&query=${newSearch}`, "movie");
         this.getAllData(`${this.store.APISeries}&query=${newSearch}`, "series");
       } else {
@@ -45,8 +46,8 @@ export default {
       })
     },
   },
-  beforeMount() {
-    // Call API to render popular content on page
+  created() {
+    // Call method that returns data from API, to render Popular Content on page
     this.getAllData(this.store.APIPopularMovies, "movie");
     this.getAllData(this.store.APIPopularSeries, "series")
   }
