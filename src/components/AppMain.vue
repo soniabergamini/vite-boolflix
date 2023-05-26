@@ -6,19 +6,14 @@ export default {
     data() {
         return {
             store,
-            flags: ["ko", "hi", "te", "cs", "hi", "te", "ja"]
+            flags: ["yo", "sw", "ha", "gn", "ff", "ee", "ay", "ar", "zh", "cn", null, undefined]
         }
     },
     methods: {
         // Return classes to show language flag
         getFlag(lang) {
             console.log(lang)
-            if (lang == "en") {
-                return "fi fi-gb"
-            } else {
-                return `fi fi-${lang}`
-            }
-            // ALTERNATIVE: add "fi fi-eu" where the flag is missing, or a custom icon
+            return `fi fi-${this.store.langCountry[lang]}`
         },
         // Return vote rounded (integer from 1 to 5)
         getVoteStars(vote) {
