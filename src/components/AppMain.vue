@@ -12,7 +12,6 @@ export default {
     methods: {
         // Return classes to show language flag
         getFlag(lang) {
-            console.log(lang)
             return `fi fi-${this.store.langCountry[lang]}`
         },
         // Return vote rounded (integer from 1 to 5)

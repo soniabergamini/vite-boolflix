@@ -21,8 +21,14 @@ export default {
   methods: {
     // Call method that returns data from API
     chatSearch(newSearch) {
-      this.getAllData(`${this.store.APIMovies}&query=${newSearch}`, "movie");
-      this.getAllData(`${this.store.APISeries}&query=${newSearch}`, "series");
+      if (newSearch.trim()) {
+        newSearch = encodeURIComponent(newSearch)
+        this.getAllData(`${this.store.APIMovies}&query=${newSearch}`, "movie");
+        this.getAllData(`${this.store.APISeries}&query=${newSearch}`, "series");
+      } else {
+        this.getAllData(this.store.APIPopularMovies, "movie");
+        this.getAllData(this.store.APIPopularSeries, "series");
+      }
     },
     // Return movies and TV series data, from API call
     getAllData(url, array) {
