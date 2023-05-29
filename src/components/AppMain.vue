@@ -3,6 +3,9 @@ import { store } from '../data/store';
 
 export default {
     name: "AppMain",
+    props: {
+        cardGenres: String
+    },
     data() {
         return {
             store,
@@ -45,7 +48,7 @@ export default {
             <h3 v-if="store.AllMovies[0].length === 0" class="mt-4 w-full">🔎 No Movies Found</h3>
             <div v-else>
                 <div v-for="(item, i) in store.AllMovies[0]" class="text-xs p-2 relative"
-                    @mouseenter="currentMovie = i, $emit('getCast', item.id, 'movie', 'movie')"
+                    @mouseenter="currentMovie = i, $emit('getCast', item.id, 'movie', 'movie'), $emit('getSingleGenre', item.genre_ids, 'movie')"
                     @mouseleave="currentMovie = null">
                     <!-- <pre class="text-xs">{{ store.AllMovies[0] }}</pre> -->
 
@@ -76,6 +79,10 @@ export default {
                             <strong>CAST: </strong>
                             <span v-for="actor in store.MovieCast">{{ actor.name }}. </span>
                         </p>
+                        <p v-show="store.MovieGenres.length > 0 && cardGenres != ''">
+                            <strong>GENRES: </strong>
+                            <span>{{ cardGenres }}</span>
+                        </p>
                         <p v-if="item.overview">
                             <strong>Overview: </strong>
                             <span>{{ item.overview }}</span>
@@ -97,7 +104,7 @@ export default {
             <h3 v-if="store.AllSeries[0].length === 0" class="mt-5 w-full">🔎 No TV Series Found</h3>
             <div v-else>
                 <div v-for="(item, i) in store.AllSeries[0]" class="text-xs p-2 relative"
-                    @mouseenter="currentSerie = i, $emit('getCast', item.id, 'tv', 'serie')"
+                    @mouseenter="currentSerie = i, $emit('getCast', item.id, 'tv', 'serie'), $emit('getSingleGenre', item.genre_ids, 'movie')"
                     @mouseleave="currentSerie = null">
                     <!-- <pre class="text-xs">{{ store.AllSeries[0] }}</pre> -->
 
@@ -127,6 +134,10 @@ export default {
                         <p v-show="store.SerieCast.length > 0">
                             <strong>CAST: </strong>
                             <span v-for="actor in store.SerieCast">{{ actor.name }}. </span>
+                        </p>
+                        <p>
+                            <strong>GENRES: </strong>
+                            <span>{{ cardGenres }}</span>
                         </p>
                         <p v-if="item.overview">
                             <strong>Overview: </strong>
