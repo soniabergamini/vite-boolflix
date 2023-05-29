@@ -14,24 +14,18 @@ export default {
     methods: {
         // Return src url for cover images
         getCover(imgPath) {
-            if (imgPath) {
-                return `${this.store.ImgPath}w185${imgPath}`
-            } else {
-                return 'https://printworks-manchester.com/cinema-poster/images/film-poster-placeholder.png'
-            }
+            const img = imgPath ? `${this.store.ImgPath}w185${imgPath}` : this.store.ImgEmpty
+            return img
         },
         // Return classes to show language flag
         getFlag(lang) {
             // console.log("Content lang: ", lang)
             return `fi fi-${this.store.langCountry[lang]}`
         },
-        // Return vote rounded (integer from 1 to 5)
-        getVoteStars(vote) {
-            return Math.round(vote / 2)
-        },
-        // Return number of empty stars to render on page
-        getEmptyStars(vote) {
-            return 5 - Math.round(vote / 2)
+        // Return star icon vote
+        getStars(n, vote) {
+            const iconClass = n <= Math.round(vote / 2) ? "fa-star fa-solid" : "fa-star fa-regular";
+            return iconClass;
         }
     }
 }
@@ -43,13 +37,14 @@ export default {
     <section id="mainContents">
 
         <!-- Movies -->
-        <section class="contentSec" v-if="store.AllMovies.length > 0 && !store.errorMsg && !this.store.loading">
+        <section class="contentSec" v-if="!store.errorMsg && !this.store.loading">
 
             <!-- Section Title -->
             <h2 class="font-bold">MOVIES:</h2>
 
             <!-- All Contents Cards -->
-            <div>
+            <h3 v-if="store.AllMovies[0].length === 0" class="mt-4 w-full">🔎 No Movies Found</h3>
+            <div v-else>
                 <div v-for="(item, i) in store.AllMovies[0]" class="text-xs p-2 relative" @mouseenter="currentMovie = i"
                     @mouseleave="currentMovie = null">
                     <!-- <pre class="text-xs">{{ store.AllMovies[0] }}</pre> -->
@@ -72,11 +67,9 @@ export default {
                         </p>
                         <p>
                             <strong>Vote: </strong>
-                            <span v-for="item in getVoteStars(item.vote_average)">
-                                <font-awesome-icon :icon="['fas', 'star']" size="lg" class="inline mx-1 text-yellow-500" />
-                            </span>
-                            <span v-for="item in getEmptyStars(item.vote_average)">
-                                <font-awesome-icon :icon="['far', 'star']" size="lg" class="inline mx-1 text-yellow-500" />
+                            <span v-for="n in 5">
+                                <font-awesome-icon :icon="getStars(n, item.vote_average)"
+                                    class="inline mx-1 text-yellow-500" size="lg" />
                             </span>
                         </p>
                         <p v-if="item.overview">
@@ -120,11 +113,9 @@ export default {
                         </p>
                         <p>
                             <strong>Vote: </strong>
-                            <span v-for="item in getVoteStars(item.vote_average)">
-                                <font-awesome-icon :icon="['fas', 'star']" size="lg" class="inline mx-1 text-yellow-500" />
-                            </span>
-                            <span v-for="item in getEmptyStars(item.vote_average)">
-                                <font-awesome-icon :icon="['far', 'star']" size="lg" class="inline mx-1 text-yellow-500" />
+                            <span v-for="n in 5">
+                                <font-awesome-icon :icon="getStars(n, item.vote_average)"
+                                    class="inline mx-1 text-yellow-500" size="lg" />
                             </span>
                         </p>
                         <p v-if="item.overview">

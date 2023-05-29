@@ -11,6 +11,7 @@ export const store = reactive({
     AllMovies: [],
     AllSeries: [],
     ImgPath: 'https://image.tmdb.org/t/p/',
+    ImgEmpty: 'https://printworks-manchester.com/cinema-poster/images/film-poster-placeholder.png',
     langCountry: {
         "aa": "dj",
         "af": "za",
