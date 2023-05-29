@@ -49,6 +49,27 @@ export default {
         }, 1 * 5000);
       })
     },
+    // Call method that returns data from API, to render Movie/TvSerie Cast on single card hover
+    getCast(id, content, array) {
+      let url = `${this.store.APIUrl}/${content}/${id}/credits?api_key=${this.store.APIkey}`
+      this.getCastData(url, array)
+    },
+    // Return single movie or TV serie cast data, from API call
+    getCastData(url, array) {
+      array == "movie" ? this.store.MovieCast = [] : this.store.SerieCast = [];
+      // API Call
+      axios.get(url).then(response => {
+        if (response.data.cast.length < 5) {
+          // If the number of actors is less than 5 
+          response.data.cast.forEach(element => array == "movie" ? this.store.MovieCast.push(element) : this.store.SerieCast.push(element));
+        } else {
+          // if the number of actors in the cast is greater than or equal to 5
+          for (let i = 0; i < 5; i++) {
+            array == "movie" ? this.store.MovieCast.push(response.data.cast[i]) : this.store.SerieCast.push(response.data.cast[i]);
+          }
+        }
+      }).catch(error => console.error(`🫤 Something went wrong with the Search ${array} Cast API call: `, error))
+    }
   },
   created() {
     // Call method that returns data from API, to render Popular Content on page
@@ -65,7 +86,7 @@ export default {
   <main class="text-white p-3">
     <AppSpinner />
     <AppErrorLoad />
-    <AppMain />
+    <AppMain @getCast="getCast" />
   </main>
 </template>
 

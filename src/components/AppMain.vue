@@ -1,6 +1,5 @@
 <script>
 import { store } from '../data/store';
-import axios from 'axios';
 
 export default {
     name: "AppMain",
@@ -26,27 +25,6 @@ export default {
         getStars(n, vote) {
             const iconClass = n <= Math.round(vote / 2) ? "fa-star fa-solid" : "fa-star fa-regular";
             return iconClass;
-        },
-        // Call method that returns data from API, to render Movie/TvSerie Cast on single card hover
-        getCast(id, content, array) {
-            let url = `${this.store.APIUrl}/${content}/${id}/credits?api_key=${this.store.APIkey}`
-            this.getCastData(url, array)
-        },
-        // Return single movie or TV serie cast data, from API call
-        getCastData(url, array) {
-            // API Call
-            array == "movie" ? this.store.MovieCast = [] : this.store.SerieCast = [];
-            axios.get(url).then(response => {
-                if (response.data.cast.length < 5) {
-                    // If the number of actors is less than 5 
-                    response.data.cast.forEach(element => array == "movie" ? this.store.MovieCast.push(element) : this.store.SerieCast.push(element));
-                } else {
-                    // if the number of actors in the cast is greater than or equal to 5
-                    for (let i = 0; i < 5; i++) {
-                        array == "movie" ? this.store.MovieCast.push(response.data.cast[i]) : this.store.SerieCast.push(response.data.cast[i]);
-                    }
-                }
-            }).catch(error => console.error(`🫤 Something went wrong with the Search ${array} Cast API call: `, error))
         }
     }
 }
@@ -67,7 +45,8 @@ export default {
             <h3 v-if="store.AllMovies[0].length === 0" class="mt-4 w-full">🔎 No Movies Found</h3>
             <div v-else>
                 <div v-for="(item, i) in store.AllMovies[0]" class="text-xs p-2 relative"
-                    @mouseenter="currentMovie = i, getCast(item.id, 'movie', 'movie')" @mouseleave="currentMovie = null">
+                    @mouseenter="currentMovie = i, $emit('getCast', item.id, 'movie', 'movie')"
+                    @mouseleave="currentMovie = null">
                     <!-- <pre class="text-xs">{{ store.AllMovies[0] }}</pre> -->
 
                     <!-- Movie Cover Image -->
@@ -118,7 +97,8 @@ export default {
             <h3 v-if="store.AllSeries[0].length === 0" class="mt-5 w-full">🔎 No TV Series Found</h3>
             <div v-else>
                 <div v-for="(item, i) in store.AllSeries[0]" class="text-xs p-2 relative"
-                    @mouseenter="currentSerie = i, getCast(item.id, 'tv', 'series')" @mouseleave="currentSerie = null">
+                    @mouseenter="currentSerie = i, $emit('getCast', item.id, 'tv', 'serie')"
+                    @mouseleave="currentSerie = null">
                     <!-- <pre class="text-xs">{{ store.AllSeries[0] }}</pre> -->
 
                     <!-- TV Serie Cover Image -->
