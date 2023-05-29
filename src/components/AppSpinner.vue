@@ -14,7 +14,7 @@ export default {
 
 <template>
     <!-- Spinner Loading -->
-    <section v-if="store.loading" class="text-white h-full">
+    <section v-if="store.loading" class="text-white h-[calc(100vh-80px)]">
         <div role="status">
             <svg aria-hidden="true"
                 class="inline w-20 h-20 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-tertiaryRed"

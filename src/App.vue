@@ -2,6 +2,7 @@
 import AppHeader from './components/AppHeader.vue'
 import AppMain from './components/AppMain.vue'
 import AppSpinner from './components/AppSpinner.vue'
+import AppErrorLoad from './components/AppErrorLoad.vue'
 
 import { store } from './data/store';
 import axios from 'axios';
@@ -11,6 +12,7 @@ export default {
   components: {
     AppHeader,
     AppSpinner,
+    AppErrorLoad,
     AppMain
   },
   data() {
@@ -36,6 +38,7 @@ export default {
       axios.get(url).then(response => {
         array == "movie" ? this.store.AllMovies = [] : this.store.AllSeries = [];
         array == "movie" ? this.store.AllMovies.push(response.data.results) : this.store.AllSeries.push(response.data.results);
+        this.store.errorMsg = false;
         this.store.loading = false;
       }).catch(error => {
         console.error(`🫤 Something went wrong with the Search ${array} API call: `, error);
@@ -60,6 +63,7 @@ export default {
   </header>
   <main class="text-white p-3">
     <AppSpinner />
+    <AppErrorLoad />
     <AppMain />
   </main>
 </template>
