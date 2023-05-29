@@ -79,11 +79,11 @@ export default {
                             <strong>CAST: </strong>
                             <span v-for="actor in store.MovieCast">{{ actor.name }}. </span>
                         </p>
-                        <p v-show="store.MovieGenres.length > 0 && cardGenres != ''">
+                        <p v-show="cardGenres != ''">
                             <strong>GENRES: </strong>
                             <span>{{ cardGenres }}</span>
                         </p>
-                        <p v-if="item.overview">
+                        <p class="overviewText" v-if="item.overview">
                             <strong>Overview: </strong>
                             <span>{{ item.overview }}</span>
                         </p>
@@ -135,11 +135,11 @@ export default {
                             <strong>CAST: </strong>
                             <span v-for="actor in store.SerieCast">{{ actor.name }}. </span>
                         </p>
-                        <p>
+                        <p v-show="cardGenres != ''">
                             <strong>GENRES: </strong>
                             <span>{{ cardGenres }}</span>
                         </p>
-                        <p v-if="item.overview">
+                        <p class="overviewText" v-if="item.overview">
                             <strong>Overview: </strong>
                             <span>{{ item.overview }}</span>
                         </p>
@@ -178,7 +178,7 @@ export default {
                 margin: .2rem 0;
             }
 
-            p:last-child {
+            p.overviewText {
                 overflow: hidden;
                 display: -webkit-box;
                 -webkit-line-clamp: 5;

@@ -26,15 +26,15 @@ export default {
     chatSearch(newSearch) {
       if (newSearch.trim()) {
         newSearch = encodeURIComponent(newSearch)
-        this.getAllData(`${this.store.APIMovies}&query=${newSearch}`, "movie");
-        this.getAllData(`${this.store.APISeries}&query=${newSearch}`, "series");
+        this.getAllContents(`${this.store.APIMovies}&query=${newSearch}`, "movie");
+        this.getAllContents(`${this.store.APISeries}&query=${newSearch}`, "series");
       } else {
-        this.getAllData(this.store.APIPopularMovies, "movie");
-        this.getAllData(this.store.APIPopularSeries, "series");
+        this.getAllContents(this.store.APIPopularMovies, "movie");
+        this.getAllContents(this.store.APIPopularSeries, "series");
       }
     },
     // Return movies and TV series data, from API call
-    getAllData(url, array) {
+    getAllContents(url, array) {
       axios.get(url).then(response => {
         this.store.loading = true;
         array == "movie" ? this.store.AllMovies = [] : this.store.AllSeries = [];
@@ -72,7 +72,7 @@ export default {
     },
     // Return a list with all Movies/TV Series genres
     getAllGenres(url, array) {
-      axios.get(url).then(response => array == "movie" ? this.store.MovieGenres.push(response.data.genres) : this.store.SerieGeners.push(response.data.genres))
+      axios.get(url).then(response => array == "movie" ? this.store.MovieGenres.push(response.data.genres) : this.store.SerieGenres.push(response.data.genres))
     },
     // Return a strign with all genres of a single content
     getSingleGenre(genreCods, array) {
@@ -86,7 +86,7 @@ export default {
             }
           });
         } else {
-          this.store.SerieGeners[0].forEach(el => {
+          this.store.SerieGenres[0].forEach(el => {
             if (n == el.id) {
               this.cardGenres += el.name + ". "
             }
@@ -97,9 +97,9 @@ export default {
   },
   created() {
     // Call method that returns data from API, to render Popular Content on page and save Genres Codes
-    this.getAllData(this.store.APIPopularMovies, "movie");
-    this.getAllData(this.store.APIPopularSeries, "series");
-    this.getAllGenres(this.store.APIMoviesGenre, "movie");
+    this.getAllContents(this.store.APIPopularMovies, "movie");
+    this.getAllContents(this.store.APIPopularSeries, "series");
+    this.getAllGenres(this.store.APIMoviesGenres, "movie");
     this.getAllGenres(this.store.APISeriesGenres, "series")
   }
 }
