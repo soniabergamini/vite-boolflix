@@ -12,6 +12,14 @@ export default {
         }
     },
     methods: {
+        // Return src url for cover images
+        getCover(imgPath) {
+            if (imgPath) {
+                return `${this.store.ImgPath}w185${imgPath}`
+            } else {
+                return 'https://printworks-manchester.com/cinema-poster/images/film-poster-placeholder.png'
+            }
+        },
         // Return classes to show language flag
         getFlag(lang) {
             // console.log("Content lang: ", lang)
@@ -36,15 +44,23 @@ export default {
 
         <!-- Movies -->
         <section class="contentSec" v-if="store.AllMovies.length > 0 && !store.errorMsg && !this.store.loading">
+
+            <!-- Section Title -->
             <h2 class="font-bold">MOVIES:</h2>
+
+            <!-- All Contents Cards -->
             <div>
                 <div v-for="(item, i) in store.AllMovies[0]" class="text-xs p-2 relative" @mouseenter="currentMovie = i"
                     @mouseleave="currentMovie = null">
                     <!-- <pre class="text-xs">{{ store.AllMovies[0] }}</pre> -->
+
+                    <!-- Movie Cover Image -->
                     <div class="w-[185px]">
-                        <img :src="`${store.ImgPath}w185${item.poster_path}`" alt="movie-poster">
+                        <img :src="getCover(item.poster_path)" alt="movie-poster">
                     </div>
-                    <div v-show="currentMovie === i" class="cardInfo bg-secondaryBgDark p-3">
+
+                    <!-- Movie info -->
+                    <div v-show="currentMovie === i" class="cardInfo bg-secondaryBgDark p-4">
                         <h3 class="text-lg w-full text-center font-bold mb-3">{{ item.title.toUpperCase() }} </h3>
                         <p v-if="item.original_title != item.title">
                             <strong>Original Title: </strong>
@@ -68,21 +84,31 @@ export default {
                             <span>{{ item.overview }}</span>
                         </p>
                     </div>
+
                 </div>
             </div>
+
         </section>
 
         <!-- TV Series -->
         <section class="contentSec" v-if="store.AllSeries.length > 0 && !store.errorMsg && !this.store.loading">
+
+            <!-- Section Title -->
             <h2 class="font-bold">TV SERIES:</h2>
+
+            <!-- All Contents Cards -->
             <div>
                 <div v-for="(item, i) in store.AllSeries[0]" class="text-xs p-2 relative" @mouseenter="currentSerie = i"
                     @mouseleave="currentSerie = null">
                     <!-- <pre class="text-xs">{{ store.AllMovies[0] }}</pre> -->
+
+                    <!-- TV Serie Cover Image -->
                     <div class="w-[185px]">
-                        <img :src="`${store.ImgPath}w185${item.poster_path}`" alt="tvserie-poster">
+                        <img :src="getCover(item.poster_path)" alt="tvserie-poster">
                     </div>
-                    <div v-show="currentSerie === i" class="cardInfo bg-secondaryBgDark p-3">
+
+                    <!-- TV Serie info -->
+                    <div v-show="currentSerie === i" class="cardInfo bg-secondaryBgDark p-4">
                         <h3 class="text-lg w-full text-center font-bold mb-3">{{ item.name.toUpperCase() }} </h3>
                         <p v-if="item.original_name != item.name">
                             <strong>Original Title: </strong>
@@ -106,8 +132,10 @@ export default {
                             <span>{{ item.overview }}</span>
                         </p>
                     </div>
+
                 </div>
             </div>
+
         </section>
 
     </section>
