@@ -8,8 +8,7 @@ export default {
             store,
             flags: ["yo", "sw", "ha", "gn", "ff", "ee", "ay", "ar", "zh", "cn", null, undefined],
             currentMovie: null,
-            currentSerie: null,
-            // overtrue oppure false dentro 
+            currentSerie: null
         }
     },
     methods: {
@@ -33,7 +32,7 @@ export default {
 
 <template>
     <!-- Search Results -->
-    <section>
+    <section id="mainContents">
 
         <!-- Movies -->
         <section class="contentSec" v-if="store.AllMovies.length > 0 && !store.errorMsg && !this.store.loading">
@@ -46,11 +45,8 @@ export default {
                         <img :src="`${store.ImgPath}w185${item.poster_path}`" alt="movie-poster">
                     </div>
                     <div v-show="currentMovie === i" class="cardInfo bg-secondaryBgDark p-3">
-                        <p>
-                            <strong>Title: </strong>
-                            <span>{{ item.title }}</span>
-                        </p>
-                        <p>
+                        <h3 class="text-lg w-full text-center font-bold mb-3">{{ item.title.toUpperCase() }} </h3>
+                        <p v-if="item.original_title != item.title">
                             <strong>Original Title: </strong>
                             <span>{{ item.original_title }}</span>
                         </p>
@@ -77,7 +73,7 @@ export default {
         </section>
 
         <!-- TV Series -->
-        <section class="contentSec my-3" v-if="store.AllSeries.length > 0 && !store.errorMsg && !this.store.loading">
+        <section class="contentSec" v-if="store.AllSeries.length > 0 && !store.errorMsg && !this.store.loading">
             <h2 class="font-bold">TV SERIES:</h2>
             <div>
                 <div v-for="(item, i) in store.AllSeries[0]" class="text-xs p-2 relative" @mouseenter="currentSerie = i"
@@ -87,11 +83,8 @@ export default {
                         <img :src="`${store.ImgPath}w185${item.poster_path}`" alt="tvserie-poster">
                     </div>
                     <div v-show="currentSerie === i" class="cardInfo bg-secondaryBgDark p-3">
-                        <p>
-                            <strong>Title: </strong>
-                            <span>{{ item.name }}</span>
-                        </p>
-                        <p>
+                        <h3 class="text-lg w-full text-center font-bold mb-3">{{ item.name.toUpperCase() }} </h3>
+                        <p v-if="item.original_name != item.name">
                             <strong>Original Title: </strong>
                             <span>{{ item.original_name }}</span>
                         </p>
@@ -124,31 +117,34 @@ export default {
 @use '../style/variables.scss' as *;
 @use '../style/mixin.scss' as *;
 
-.contentSec>div {
+#mainContents {
+    @include flex(center, center, column, 3rem);
 
-    overflow-x: scroll;
-    width: 87.5rem;
-    @include flex(flex-start, stretch, row, .2rem);
+    .contentSec>div {
+        overflow-x: scroll;
+        max-width: 93.75rem;
+        @include flex(flex-start, stretch, row, .2rem);
 
-    div.cardInfo {
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 2;
-        width: 100%;
-        height: 100%;
-        @include flex(center, flex-start, column, .2rem);
+        div.cardInfo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+            @include flex(center, flex-start, column, .2rem);
 
-        p {
-            margin: .2rem 0;
-        }
+            p {
+                margin: .2rem 0;
+            }
 
-        p:last-child {
-            overflow: hidden;
-            display: -webkit-box;
-            -webkit-line-clamp: 5;
-            -webkit-box-orient: vertical;
-            font-size: .625rem;
+            p:last-child {
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-line-clamp: 5;
+                -webkit-box-orient: vertical;
+                font-size: .625rem;
+            }
         }
     }
 }

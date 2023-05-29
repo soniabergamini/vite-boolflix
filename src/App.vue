@@ -1,7 +1,6 @@
 <script>
 import AppHeader from './components/AppHeader.vue'
 import AppMain from './components/AppMain.vue'
-import AppFooter from './components/AppFooter.vue'
 import AppSpinner from './components/AppSpinner.vue'
 
 import { store } from './data/store';
@@ -12,8 +11,7 @@ export default {
   components: {
     AppHeader,
     AppSpinner,
-    AppMain,
-    AppFooter
+    AppMain
   },
   data() {
     return {
@@ -60,13 +58,10 @@ export default {
   <header class="text-white h-20 p-3">
     <AppHeader @chatSearch="chatSearch" />
   </header>
-  <main class="text-white h-[calc(100vh-120px)] p-3">
+  <main class="text-white p-3">
     <AppSpinner />
     <AppMain />
   </main>
-  <footer class="h-10 text-slate-600 p-3">
-    <AppFooter />
-  </footer>
 </template>
 
 <style lang="scss" scoped>
