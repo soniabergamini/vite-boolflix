@@ -75,9 +75,9 @@ export default {
       axios.get(url).then(response => array == "movie" ? this.store.MovieGenres.push(response.data.genres) : this.store.SerieGeners.push(response.data.genres))
     },
     // Return a strign with all genres of a single content
-    getSingleGenre(cod, array) {
+    getSingleGenre(genreCods, array) {
       this.cardGenres = "";
-      cod.forEach(element => {
+      genreCods.forEach(element => {
         const n = element;
         if (array == "movie") {
           this.store.MovieGenres[0].forEach(el => {
