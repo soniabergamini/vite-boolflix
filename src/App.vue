@@ -36,6 +36,7 @@ export default {
     // Return movies and TV series data, from API call
     getAllData(url, array) {
       axios.get(url).then(response => {
+        this.store.loading = true;
         array == "movie" ? this.store.AllMovies = [] : this.store.AllSeries = [];
         array == "movie" ? this.store.AllMovies.push(response.data.results) : this.store.AllSeries.push(response.data.results);
         this.store.errorMsg = false;
