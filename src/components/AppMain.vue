@@ -37,7 +37,7 @@ export default {
 
         <!-- Movies -->
         <section class="contentSec" v-if="store.AllMovies.length > 0 && !store.errorMsg && !this.store.loading">
-            <h2>MOVIES</h2>
+            <h2 class="font-bold">MOVIES:</h2>
             <div>
                 <div v-for="(item, i) in store.AllMovies[0]" class="text-xs p-2 relative" @mouseenter="currentMovie = i"
                     @mouseleave="currentMovie = null">
@@ -67,14 +67,18 @@ export default {
                                 <font-awesome-icon :icon="['far', 'star']" size="lg" class="inline mx-1 text-yellow-500" />
                             </span>
                         </p>
+                        <p v-if="item.overview">
+                            <strong>Overview: </strong>
+                            <span>{{ item.overview }}</span>
+                        </p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- TV Series -->
-        <section class="contentSec" v-if="store.AllSeries.length > 0 && !store.errorMsg && !this.store.loading">
-            <h2>MOVIES</h2>
+        <section class="contentSec my-3" v-if="store.AllSeries.length > 0 && !store.errorMsg && !this.store.loading">
+            <h2 class="font-bold">TV SERIES:</h2>
             <div>
                 <div v-for="(item, i) in store.AllSeries[0]" class="text-xs p-2 relative" @mouseenter="currentSerie = i"
                     @mouseleave="currentSerie = null">
@@ -104,6 +108,10 @@ export default {
                                 <font-awesome-icon :icon="['far', 'star']" size="lg" class="inline mx-1 text-yellow-500" />
                             </span>
                         </p>
+                        <p v-if="item.overview">
+                            <strong>Overview: </strong>
+                            <span>{{ item.overview }}</span>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -113,14 +121,14 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-@use '../variables.scss' as *;
+@use '../style/variables.scss' as *;
+@use '../style/mixin.scss' as *;
 
 .contentSec>div {
 
-    display: flex;
     overflow-x: scroll;
     width: 87.5rem;
-    gap: .8rem;
+    @include flex(flex-start, stretch, row, .2rem);
 
     div.cardInfo {
         position: absolute;
@@ -129,12 +137,18 @@ export default {
         z-index: 2;
         width: 100%;
         height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
+        @include flex(center, flex-start, column, .2rem);
 
         p {
             margin: .2rem 0;
+        }
+
+        p:last-child {
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 5;
+            -webkit-box-orient: vertical;
+            font-size: .625rem;
         }
     }
 }

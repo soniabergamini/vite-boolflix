@@ -11,5 +11,6 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-@use '../variables.scss' as *;
+@use '../style/mixin.scss' as *;
+@use '../style/variables.scss' as *;
 </style>

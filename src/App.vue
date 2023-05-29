@@ -2,6 +2,7 @@
 import AppHeader from './components/AppHeader.vue'
 import AppMain from './components/AppMain.vue'
 import AppFooter from './components/AppFooter.vue'
+import AppSpinner from './components/AppSpinner.vue'
 
 import { store } from './data/store';
 import axios from 'axios';
@@ -10,6 +11,7 @@ export default {
   name: "App",
   components: {
     AppHeader,
+    AppSpinner,
     AppMain,
     AppFooter
   },
@@ -55,13 +57,14 @@ export default {
 </script>
 
 <template>
-  <header class="text-white border border-red-300 h-20 p-3">
+  <header class="text-white h-20 p-3">
     <AppHeader @chatSearch="chatSearch" />
   </header>
-  <main class="text-white h-[calc(100vh-120px)] border border-yellow-200 p-3">
+  <main class="text-white h-[calc(100vh-120px)] p-3">
+    <AppSpinner />
     <AppMain />
   </main>
-  <footer class="h-10 border text-slate-600 border-blue-400 p-3">
+  <footer class="h-10 text-slate-600 p-3">
     <AppFooter />
   </footer>
 </template>

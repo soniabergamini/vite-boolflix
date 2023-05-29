@@ -2,7 +2,8 @@ import { createApp } from 'vue'
 import App from './App.vue'
 
 // Style CSS
-import './variables.scss'
+import './style/variables.scss'
+import './style/mixin.scss'
 
 // Flag Icons
 import "/node_modules/flag-icons/css/flag-icons.min.css"
