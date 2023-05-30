@@ -49,11 +49,6 @@ export default {
 
         </div>
 
-        <!--  -->
-        <div class="selectSeries mb-3">
-
-        </div>
-
         <!-- Search Bar -->
         <div>
             <form action="#">
