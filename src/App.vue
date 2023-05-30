@@ -18,7 +18,8 @@ export default {
   data() {
     return {
       store,
-      cardGenres: ""
+      cardGenres: "",
+      AllGenres: [],
     }
   },
   methods: {
@@ -72,7 +73,11 @@ export default {
     },
     // Return a list with all Movies/TV Series genres
     getAllGenres(url, array) {
-      axios.get(url).then(response => array == "movie" ? this.store.MovieGenres.push(response.data.genres) : this.store.SerieGenres.push(response.data.genres))
+      axios.get(url).then(response => {
+        array == "movie" ? this.store.MovieGenres.push(response.data.genres) : this.store.SerieGenres.push(response.data.genres)
+        this.AllGenres.push(response.data.genres)
+      });
+
     },
     // Return a strign with all genres of a single content
     getSingleGenre(genreCods, array) {
@@ -107,7 +112,7 @@ export default {
 
 <template>
   <header class="text-white h-20 p-3">
-    <AppHeader @chatSearch="chatSearch" />
+    <AppHeader @chatSearch="chatSearch" :AllGenres="this.AllGenres" />
   </header>
   <main class="text-white p-3">
     <AppSpinner />

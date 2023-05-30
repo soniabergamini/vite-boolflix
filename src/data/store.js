@@ -17,6 +17,8 @@ export const store = reactive({
     SerieCast: [],
     MovieGenres: [],
     SerieGenres: [],
+    FilterMovie: "",
+    FilterSerie: "",
     ImgPath: 'https://image.tmdb.org/t/p/',
     ImgEmpty: 'https://printworks-manchester.com/cinema-poster/images/film-poster-placeholder.png',
     langCountry: {

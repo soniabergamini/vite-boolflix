@@ -183,7 +183,6 @@ export default {
                 display: -webkit-box;
                 -webkit-line-clamp: 5;
                 -webkit-box-orient: vertical;
-                font-size: .625rem;
             }
 
         }

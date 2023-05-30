@@ -1,9 +1,14 @@
 <script>
+import { store } from '../data/store';
 
 export default {
     name: "AppHeader",
+    props: {
+        AllGenres: Array
+    },
     data() {
         return {
+            store,
             newSearch: ""
         }
     }
@@ -20,6 +25,33 @@ export default {
             <a href="#">
                 <img src="/netflix-logo.png" alt="netflix-logo">
             </a>
+        </div>
+
+        <!-- Search Filters -->
+        <div>
+            <span>Filters: </span>
+
+            <!-- Movies Genres -->
+            <select class="text-gray-500 px-3 py-1 mx-2" v-model="store.FilterMovie">
+                <option selected>All Movies Genres</option>
+                <template v-show="AllGenres != ''" v-for="item in AllGenres[0]">
+                    <option>{{ item.name }}</option>
+                </template>
+            </select>
+
+            <!-- TV Series Genres -->
+            <select class="text-gray-500 px-3 py-1 mx-2" v-model="store.FilterSerie">
+                <option selected>All TV Series Genres</option>
+                <template v-show="AllGenres != ''" v-for="item in AllGenres[1]">
+                    <option>{{ item.name }}</option>
+                </template>
+            </select>
+
+        </div>
+
+        <!--  -->
+        <div class="selectSeries mb-3">
+
         </div>
 
         <!-- Search Bar -->
